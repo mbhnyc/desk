@@ -46,7 +46,8 @@ module Desk
           request.url(formatted_path(path), options)
         when :post, :put
           request.path = formatted_path(path)
-          request.body = options unless options.empty?
+          request.headers['Content-Type'] = 'application/json'
+          request.body = options.to_json unless options.empty?
         end
       end
       raw ? response : response.body
